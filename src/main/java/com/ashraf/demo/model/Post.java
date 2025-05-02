@@ -18,7 +18,7 @@ public class Post {
     Long id;
     String title;
     String content;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
             @JoinColumn(name = "user_id")
     User author;
 

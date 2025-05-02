@@ -14,20 +14,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
     @Autowired
     PostService postService;
-    @Autowired
-    UserRepository userRepository;
+
     @Autowired
     private PostRepo postRepo;
 
     @PostMapping
     public ResponseEntity<?> createPost(@RequestBody Post post, HttpSession session) {
         User sessionUser = (User) session.getAttribute("user");
+
+
         if (sessionUser == null || sessionUser.getId() == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in or not saved properly");
         }
@@ -39,6 +41,17 @@ public class PostController {
     @GetMapping
     public ResponseEntity<List<Post>> getAllPosts() {
     List<Post> posts = postService.getAllPosts();
+        System.out.println("Fetched posts: " + posts.size());
     return ResponseEntity.status(HttpStatus.OK).body(posts);
     }
+
+    @GetMapping("/by-email")
+    public ResponseEntity<List<Post>> getPostsByEmail(@RequestParam String email) {
+        List<Post> posts = postService.getPostsByUserEmail(email);
+        return ResponseEntity.status(HttpStatus.OK).body(posts);
+    }
+
+
+
+
 }

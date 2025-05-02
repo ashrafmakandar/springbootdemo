@@ -48,7 +48,8 @@ public class UserController {
       try {
           LoginResponse loginResponse= service.getUser(user.getName(), user.getEmail());
           if(loginResponse!=null) {
-              session.setAttribute("user", user);
+
+              session.setAttribute("user", loginResponse.getUser());
               return ResponseEntity.ok(loginResponse);
           }
           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
@@ -63,5 +64,11 @@ public class UserController {
     public User updateuser(@PathVariable Long id,@RequestBody User user) {
 
         return service.updateUser(id, user);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpSession session) {
+        session.invalidate();
+        return ResponseEntity.ok("User logged out successfully");
     }
 }

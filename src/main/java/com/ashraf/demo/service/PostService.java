@@ -19,10 +19,15 @@ public class PostService {
         return postRepo.findAll();
 
     }
+
+    public List<Post> getPostsByUserEmail(String email) {
+        return postRepo.findByAuthorEmail(email);
+    }
+
     public Post creatPost(Long id, String title, String content, User user) {
         Post post = new Post();
         post.setTitle(title);
-        post.setId(id);
+
         post.setContent(content);
         post.setUser(user);
 
