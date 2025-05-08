@@ -38,7 +38,7 @@ public class UserService {
 public LoginResponse getUser(String name,String email) {
     Optional<User> user= repository.findByName(name);
     if(user.isPresent() && user.get().getEmail().equals(email)) {
-        return new LoginResponse("Succesfull login","200",user.get());
+        return new LoginResponse("Successfull login","200",user.get());
 
     }else {
         return new LoginResponse("Fail login","404",null);
