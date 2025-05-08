@@ -42,6 +42,8 @@ public class UserController {
         return service.Login(email);
     }
 
+
+
 @GetMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user, HttpSession
                                    session) {
@@ -57,7 +59,11 @@ public class UserController {
       } catch (Exception e) {
           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
       }
-    };
+    }
+
+
+
+
 
 
     @PutMapping("/{id}")

@@ -2,9 +2,11 @@ package com.ashraf.demo.service;
 
 
 import com.ashraf.demo.dto.LoginResponse;
+
 import com.ashraf.demo.model.User;
+import com.ashraf.demo.repository.PostRepo;
 import com.ashraf.demo.repository.UserRepository;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -12,12 +14,16 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository repository;
+    private final PostRepo postRepo;
 
-    public UserService(UserRepository repository) {
+    public UserService(UserRepository repository, PostRepo postRepo) {
         this.repository = repository;
+        this.postRepo = postRepo;
     }
 
     public List<User> getAll() {
+
+
         return repository.findAll();
     }
 
@@ -37,7 +43,7 @@ public LoginResponse getUser(String name,String email) {
     }else {
         return new LoginResponse("Fail login","404",null);
     }
-};
+}
 
 
     public void delete(Long id) {
@@ -55,5 +61,8 @@ public LoginResponse getUser(String name,String email) {
         existinguser.setName(user.getName());
         return repository.save(existinguser);
     }
+
+
+
 }
 
